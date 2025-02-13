@@ -20,6 +20,9 @@ const Signup = ({ onSuccess, switchToLogin }: SignupProps) => {
       if (user) {
         await user.reload();
         if (user.emailVerified) {
+          const token=user.getIdToken();
+          
+          console.log("This the token bro: ",token)
           clearInterval(interval); 
           onSuccess(); 
         }

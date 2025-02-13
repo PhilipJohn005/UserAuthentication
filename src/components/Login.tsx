@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../Firebase/FirebaseConfig";
+import SigninWithGoogle from "./SigninWithGoogle";
 
 interface LoginProps {
   onSuccess: () => void;
@@ -14,7 +15,10 @@ const Login = ({ onSuccess, switchToSignup }: LoginProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential=await signInWithEmailAndPassword(auth, email, password);
+
+      const token=userCredential.user.getIdToken()
+      console.log("This is the token: ",token);
       console.log("User Logged in Successfully!!");
       onSuccess();
     } catch (error) {
@@ -64,6 +68,7 @@ const Login = ({ onSuccess, switchToSignup }: LoginProps) => {
           >
             Login
           </button>
+
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
@@ -75,6 +80,7 @@ const Login = ({ onSuccess, switchToSignup }: LoginProps) => {
             Signup
           </button>
         </p>
+        <SigninWithGoogle closeModal={onSuccess}/>
       </div>
     </div>
   );

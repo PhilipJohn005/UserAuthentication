@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.4",
+    "@telegram-auth/react": "^1.0.4",
+    "@telegram-auth/server": "^1.0.4",
     "firebase": "^11.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

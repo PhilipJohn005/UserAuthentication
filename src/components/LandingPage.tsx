@@ -2,9 +2,8 @@ import { useState } from "react";
 import { User, signOut } from "firebase/auth";
 import { auth } from "../Firebase/FirebaseConfig";
 import Modal from "./Modal";
-import Login from "./Login";
-import Signup from "./Signup";
-import TelegramButton from "./TelegramButton"; // Import Telegram login
+import Login from "./Buttons/Login";
+import Signup from "./Buttons/Signup";
 
 interface LandingProp {
   user: User | null;
@@ -18,8 +17,7 @@ const LandingPage = ({ user }: LandingProp) => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      setTelegramUser(null); // Logout Telegram user as well
-      console.log("User logged out successfully!");
+      setTelegramUser(null); 
     } catch (error) {
       console.error("Error logging out: ", error);
     }
@@ -72,8 +70,7 @@ const LandingPage = ({ user }: LandingProp) => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {modalContent === "login" ? (
           <>
-            <Login onSuccess={closeModal} switchToSignup={switchToSignup} />
-            <TelegramButton onSuccess={handleTelegramLogin} /> 
+            <Login onSuccess={closeModal} switchToSignup={switchToSignup} telegramLogin={handleTelegramLogin}/>
           </>
         ) : (
           <Signup onSuccess={closeModal} switchToLogin={switchToLogin} />

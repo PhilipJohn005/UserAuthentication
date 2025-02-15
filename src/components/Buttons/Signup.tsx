@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { auth } from "../Firebase/FirebaseConfig";
+import { auth } from "../../Firebase/FirebaseConfig";
 
 interface SignupProps {
   onSuccess: () => void;

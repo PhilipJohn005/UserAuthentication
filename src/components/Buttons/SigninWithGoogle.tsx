@@ -1,4 +1,3 @@
-import React from 'react'
 import google from '../../assets/google.png'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../../Firebase/FirebaseConfig'

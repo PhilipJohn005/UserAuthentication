@@ -17,7 +17,7 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <div className="justify-center flex items-center min-h-screen">Patience bro...</div>;
+    return <div className="justify-center flex items-center min-h-screen ">Patience bro...</div>;
   }
 
   return (

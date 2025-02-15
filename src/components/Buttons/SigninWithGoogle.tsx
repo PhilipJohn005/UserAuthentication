@@ -2,7 +2,7 @@ import React from 'react'
 import '../App.css'
 import google from '../assets/google.png'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { auth } from '../Firebase/FirebaseConfig'
+import { auth } from '../../Firebase/FirebaseConfig'
 
 
 interface GoogleProp{
@@ -16,8 +16,7 @@ const SigninWithGoogle = ({closeModal}:GoogleProp) => {
         const provider=new GoogleAuthProvider
         signInWithPopup(auth,provider).then(async(result)=>{
             console.log(result);
-            if(result.user){
-                
+            if(result.user){ 
                 closeModal();
             }
         })

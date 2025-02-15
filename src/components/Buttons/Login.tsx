@@ -1,14 +1,16 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../Firebase/FirebaseConfig";
+import { auth } from "../../Firebase/FirebaseConfig";
 import SigninWithGoogle from "./SigninWithGoogle";
+import TelegramButton from "./TelegramButton";
 
 interface LoginProps {
   onSuccess: () => void;
   switchToSignup: () => void; 
+  telegramLogin: (user: { first_name: string; username?: string }) => void;
 }
 
-const Login = ({ onSuccess, switchToSignup }: LoginProps) => {
+const Login = ({ onSuccess, switchToSignup, telegramLogin}: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -81,6 +83,8 @@ const Login = ({ onSuccess, switchToSignup }: LoginProps) => {
           </button>
         </p>
         <SigninWithGoogle closeModal={onSuccess}/>
+        <TelegramButton onSuccess={telegramLogin}/>
+
       </div>
     </div>
   );

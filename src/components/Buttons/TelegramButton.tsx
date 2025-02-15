@@ -41,7 +41,7 @@ const TelegramButton: React.FC<TelegramButtonProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div className="justify-center items-center flex">
+    <div className="justify-center items-center flex cursor-pointer">
     <LoginButton
       botUsername="auth1223_bot"
       onAuthCallback={handleAuth}

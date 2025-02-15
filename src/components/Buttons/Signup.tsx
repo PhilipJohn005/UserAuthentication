@@ -8,8 +8,6 @@ interface SignupProps {
 }
 
 const Signup = ({ onSuccess, switchToLogin }: SignupProps) => {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,38 +62,13 @@ const Signup = ({ onSuccess, switchToLogin }: SignupProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100">
+    <div className="flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-semibold text-center mb-6 text-gray-700">
           Create an Account
         </h2>
 
         <form onSubmit={handleRegister} className="space-y-4">
-          <div>
-            <label className="block text-gray-600 text-sm font-medium mb-1">
-              First Name
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Enter first name"
-              onChange={(e) => setFname(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-600 text-sm font-medium mb-1">
-              Last Name
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Enter last name"
-              onChange={(e) => setLname(e.target.value)}
-            />
-          </div>
-
           <div>
             <label className="block text-gray-600 text-sm font-medium mb-1">
               Email

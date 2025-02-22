@@ -2,8 +2,13 @@ import React from "react";
 import { LoginButton } from "@telegram-auth/react";
 import { AuthDataValidator } from "@telegram-auth/server";
 import { urlStrToAuthDataMap } from "@telegram-auth/server/utils";
+import axios from "axios";
+import { signInWithCustomToken } from "firebase/auth";
+import { auth } from "../../Firebase/FirebaseConfig";
 
-const validator = new AuthDataValidator({ botToken: "7570508468:AAG23SYMkKGXZJaelzQGMMx6zbbQTQsM8Ss" });
+
+const BOT_TOKEN= import.meta.env.TELEGRAM_BOT_TOKEN;
+const validator = new AuthDataValidator({botToken:BOT_TOKEN});//bot token shld bne present in .env file
 
 interface TelegramAuthData {
   auth_date: number;
@@ -14,25 +19,35 @@ interface TelegramAuthData {
   photo_url?: string;
   username?: string;
 }
-
 interface TelegramButtonProps {
-  onSuccess: (user: { first_name: string; username?: string }) => void;
+  closeModal: () => void;
 }
 
-const TelegramButton: React.FC<TelegramButtonProps> = ({ onSuccess }) => {
+const TelegramButton: React.FC<TelegramButtonProps>=({closeModal})=>{
+
+
   const handleAuth = async (data: TelegramAuthData) => {
+
     console.log("Received Data:", data);
     
     try {
-      const formattedData: Record<string, string> = Object.fromEntries(
-        Object.entries(data).map(([key, value]) => [key, String(value)])
-      );
+      const formattedData: Record<string, string> = Object.fromEntries(Object.entries(data).map(([key, value]) => [key, String(value)]));
 
       const authData = urlStrToAuthDataMap(`https://yourdomain.com?${new URLSearchParams(formattedData)}`);
-      const user = await validator.validate(authData);
+      
+      await validator.validate(authData);
+      
 
-      console.log("User data is valid:", user);
-      onSuccess({ first_name: user.first_name, username: user.username });
+      const response=await axios.post<{token:string}>("http://localhost:5000/generate-token",{
+        telegramUserId: data.id,
+        firstName: data.first_name,
+        lastName: data.last_name,
+      })
+
+      const firebaseToken=response.data.token;
+      const userCredentials= await signInWithCustomToken(auth,firebaseToken)
+      console.log("The userCredentials are: ",userCredentials)
+      closeModal();
 
     } catch (error) {
       console.error("Validation failed:", error);

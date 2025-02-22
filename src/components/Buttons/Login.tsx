@@ -7,10 +7,10 @@ import TelegramButton from "./TelegramButton";
 interface LoginProps {
   onSuccess: () => void;
   switchToSignup: () => void; 
-  telegramLogin: (user: { first_name: string; username?: string }) => void;
+  //telegramLogin: (user: { first_name: string; username?: string }) => void;
 }
 
-const Login = ({ onSuccess, switchToSignup, telegramLogin}: LoginProps) => {
+const Login = ({ onSuccess, switchToSignup}: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -90,7 +90,7 @@ const Login = ({ onSuccess, switchToSignup, telegramLogin}: LoginProps) => {
           </button>
         </p>
         <SigninWithGoogle closeModal={onSuccess}/>
-        <TelegramButton onSuccess={telegramLogin}/>
+        <TelegramButton closeModal={onSuccess}/>
 
       </div>
     </div>

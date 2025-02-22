@@ -41,10 +41,10 @@ const LandingPage = ({ user }: LandingProp) => {
   };
 
   
-  const handleTelegramLogin = (telegramUserData: { first_name: string; username?: string }) => {
+  /*const handleTelegramLogin = (telegramUserData: { first_name: string; username?: string }) => {
     setTelegramUser(telegramUserData);
     closeModal(); 
-  };
+  };*/
 
   return (
     <div className="text-center">
@@ -70,7 +70,7 @@ const LandingPage = ({ user }: LandingProp) => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {modalContent === "login" ? (
           <>
-            <Login onSuccess={closeModal} switchToSignup={switchToSignup} telegramLogin={handleTelegramLogin}/>
+            <Login onSuccess={closeModal} switchToSignup={switchToSignup}/>
           </>
         ) : (
           <Signup onSuccess={closeModal} switchToLogin={switchToLogin} />

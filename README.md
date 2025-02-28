@@ -1,5 +1,24 @@
 # React + TypeScript + Vite
 
+To Run server.ts u must do
+
+```
+node --loader ts-node/esm src/Backend/server.ts
+```
+Then run the localhost
+
+```
+npm run dev
+```
+
+
+Look at the port number based on that create the ngrok link and then update domain to it for ur bot
+
+```
+ngrok http 5173
+```
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

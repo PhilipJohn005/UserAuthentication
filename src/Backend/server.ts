@@ -15,7 +15,7 @@ if (!admin.apps.length) {
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
+//collection of all endpoints->api
 app.post("/generate-token", async (req: express.Request, res: express.Response): Promise<void> => {
   let { telegramUserId } = req.body;
   const { firstName, lastName } = req.body;

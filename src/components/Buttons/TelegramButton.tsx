@@ -35,13 +35,11 @@ const TelegramButton: React.FC<TelegramButtonProps>=({closeModal})=>{
 
       const authData = urlStrToAuthDataMap(`https://yourdomain.com?${new URLSearchParams(formattedData)}`);
       
-      await validator.validate(authData);
+      await validator.validate(authData);  //frontend validate
       
 
       const response=await axios.post<{token:string}>("http://localhost:5000/generate-token",{
-        telegramUserId: data.id,
-        firstName: data.first_name,
-        lastName: data.last_name,
+        authData,   //send auth data to backend so it can validate 
       })
 
       const firebaseToken=response.data.token;

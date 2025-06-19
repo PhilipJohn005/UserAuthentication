@@ -17,12 +17,24 @@ app.use(cors());
 app.use(bodyParser.json());
 //collection of all endpoints->api
 app.post("/generate-token", async (req: express.Request, res: express.Response): Promise<void> => {
-  let { telegramUserId } = req.body;
-  const { firstName, lastName } = req.body;
+  const { telegramAuthData } = req.body; // Now receiving full auth data
 
-  console.log("Received Telegram ID:", telegramUserId); // Log the ID for debugging
-
-
+  try {  //validating if the user is authentic telegram user or not
+    const formattedData: Record<string, string> = Object.fromEntries(
+      Object.entries(telegramAuthData).map(([key, value]) => [key, String(value)])
+    );
+    const authData = urlStrToAuthDataMap(
+      `https://yourdomain.com?${new URLSearchParams(formattedData)}`
+    );
+    await validator.validate(authData); 
+  } catch (error) {
+    console.error("Telegram validation failed:", error);
+    return res.status(401).json({ error: "Fake Telegram login!" });
+  }
+  //after validation we move forward
+  const telegramUserId = String(telegramAuthData.id);
+  const firstName = telegramAuthData.first_name;
+  const lastName = telegramAuthData.last_name;
   if (typeof telegramUserId === "number") {
     telegramUserId=String(telegramUserId);
   }
